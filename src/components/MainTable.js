@@ -40,8 +40,6 @@ export const MainTable = ({ cats }) => {
     }
   }, [cats]);
 
-  console.log(rows);
-
   return (
     <Paper>
       <Grid rows={rows} columns={columns}>
