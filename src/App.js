@@ -1,12 +1,15 @@
-import { useEffect } from 'react';
-import { MainTable } from './components/MainTable';
+import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
-import { getRandomCats, getRandomCatsImages } from './api/cats';
+
+import { MainTable } from './components/MainTable';
+
+import { getCats } from './api/cats';
 
 const App = () => {
+  const [cats, setCats] = useState([]);
+
   useEffect(() => {
-    getRandomCats();
-    getRandomCatsImages();
+    getCats().then(setCats);
   }, []);
 
   return (
@@ -14,7 +17,7 @@ const App = () => {
       <Typography variant="h3" textAlign={'center'}>
         Cats Explorer
       </Typography>
-      <MainTable />
+      <MainTable cats={cats} />
     </Box>
   );
 };

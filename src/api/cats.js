@@ -1,10 +1,10 @@
 import { client } from './httpClient';
 
-export const getRandomCats = async () => {
+export const getCats = async () => {
   try {
-    const response = await client.get('breeds?limit=10&page=0');
+    const response = await client.get('breeds?limit=100');
 
-    console.log(response);
+    return response.data;
   } catch (error) {
     console.error(error);
   }
