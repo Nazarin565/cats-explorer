@@ -10,8 +10,8 @@ import {
   MenuItem,
   Toolbar,
   Tooltip,
-  Typography,
 } from '@mui/material';
+import { Link } from 'react-router';
 import MenuIcon from '@mui/icons-material/Menu';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
@@ -21,7 +21,7 @@ import {
   StyledTitle,
 } from '../styles/Header.styles';
 
-const pages = ['Explore', 'Random'];
+const pages = ['explore', 'random'];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -60,7 +60,9 @@ const Header = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign={'center'}>{page}</Typography>
+                  <Button component={Link} to={page} textAlign={'center'}>
+                    {page}
+                  </Button>
                 </MenuItem>
               ))}
             </Menu>
@@ -73,7 +75,13 @@ const Header = () => {
 
           <StyledNavBox device="desktop">
             {pages.map((page) => (
-              <Button key={page} onClick={handleCloseNavMenu} color="inherit">
+              <Button
+                component={Link}
+                to={page}
+                key={page}
+                onClick={handleCloseNavMenu}
+                color="inherit"
+              >
                 {page}
               </Button>
             ))}

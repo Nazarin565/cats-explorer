@@ -10,11 +10,11 @@ export const getCats = async () => {
   }
 };
 
-export const getRandomCatsImages = async () => {
+export const getRandomCatImage = async () => {
   try {
-    const response = await client.get('images/search?limit=100');
+    const response = await client.get('images/search');
 
-    console.log(response);
+    return response.data;
   } catch (error) {
     console.error(error);
   }

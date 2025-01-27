@@ -1,29 +1,18 @@
-import { useEffect, useState } from 'react';
-import { Container, Typography } from '@mui/material';
+import { Outlet } from 'react-router';
+import { Container } from '@mui/material';
 
-import { Header, MainTable } from './components';
+import { Header } from './components';
 
-import { getCats } from './api/cats';
 import { StyledContentBox } from './App.styles';
 
-const App = () => {
-  const [cats, setCats] = useState([]);
+const App = () => (
+  <Container maxWidth="xl" disableGutters>
+    <Header />
 
-  useEffect(() => {
-    getCats().then(setCats);
-  }, []);
-
-  return (
-    <Container maxWidth="xl" disableGutters>
-      <Header />
-      <StyledContentBox>
-        <Typography variant="h3" textAlign={'center'}>
-          Explorer
-        </Typography>
-        <MainTable cats={cats} />
-      </StyledContentBox>
-    </Container>
-  );
-};
+    <StyledContentBox>
+      <Outlet />
+    </StyledContentBox>
+  </Container>
+);
 
 export default App;
