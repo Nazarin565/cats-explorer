@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Box, Container, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 
 import { Header, MainTable } from './components';
 
 import { getCats } from './api/cats';
+import { StyledContentBox } from './App.styles';
 
 const App = () => {
   const [cats, setCats] = useState([]);
@@ -15,12 +16,12 @@ const App = () => {
   return (
     <Container maxWidth="xl" disableGutters>
       <Header />
-      <Box sx={{ padding: { xs: 1, md: 2, lg: 3 } }}>
+      <StyledContentBox>
         <Typography variant="h3" textAlign={'center'}>
           Explorer
         </Typography>
         <MainTable cats={cats} />
-      </Box>
+      </StyledContentBox>
     </Container>
   );
 };
