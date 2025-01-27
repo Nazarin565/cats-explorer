@@ -39,13 +39,13 @@ const Header = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Grid2 container alignItems={'center'}>
-            <PetsIconResponse device="desktop" />
-            <StyledTitle variant="h6" noWrap device="desktop">
+            <PetsIconResponse device="mobile" />
+            <StyledTitle variant="h6" noWrap device="mobile">
               Cats Explorer
             </StyledTitle>
           </Grid2>
 
-          <StyledNavBox device="desktop">
+          <StyledNavBox device="mobile">
             <IconButton
               size="large"
               onClick={handleOpenNavMenu}
@@ -66,14 +66,14 @@ const Header = () => {
             </Menu>
           </StyledNavBox>
 
-          <PetsIconResponse device="mobile" />
-          <StyledTitle variant="h5" noWrap device="mobile">
+          <PetsIconResponse device="desktop" />
+          <StyledTitle variant="h5" noWrap device="desktop">
             Cats Explorer
           </StyledTitle>
 
-          <StyledNavBox device="mobile">
+          <StyledNavBox device="desktop">
             {pages.map((page) => (
-              <Button key={page} onClick={handleCloseNavMenu}>
+              <Button key={page} onClick={handleCloseNavMenu} color="inherit">
                 {page}
               </Button>
             ))}
