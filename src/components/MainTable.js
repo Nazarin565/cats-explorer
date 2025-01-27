@@ -15,12 +15,12 @@ import {
   TableRowDetail,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import { RowDetail } from './RowDetail';
+import RowDetail from './RowDetail';
 
 import { TableHeaderContent } from '../styles/MainTable.styles';
 import { columns } from '../utils/constants';
 
-export const MainTable = ({ cats }) => {
+const MainTable = ({ cats }) => {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
@@ -62,3 +62,5 @@ export const MainTable = ({ cats }) => {
     </Paper>
   );
 };
+
+export default MainTable;

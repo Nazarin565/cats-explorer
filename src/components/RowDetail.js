@@ -4,11 +4,12 @@ import { Grid2, List, ListItem, Typography } from '@mui/material';
 import { StatElement } from '../styles/RowDetail.styles';
 import { stats } from '../utils/constants';
 
-export const RowDetail = ({ row }) => (
+const RowDetail = ({ row }) => (
   <Grid2 container spacing={2}>
     <Grid2
       flex={1}
       container
+      flexDirection={'column'}
       justifyContent={'space-around'}
       alignItems={'center'}
       textAlign={'center'}
@@ -53,3 +54,5 @@ export const RowDetail = ({ row }) => (
     </Grid2>
   </Grid2>
 );
+
+export default RowDetail;
