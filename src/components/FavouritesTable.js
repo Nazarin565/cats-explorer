@@ -69,9 +69,11 @@ const FavouritesTable = () => {
       ];
     }
     if (changed) {
-      changedRows = rows.map((row) =>
-        changed[0].id === row.id ? { ...row, ...changed[0] } : row
-      );
+      changedRows = rows.map((row, index) => {
+        return changed[index] && changed[index].id === row.id
+          ? { ...row, ...changed[index] }
+          : row;
+      });
     }
     if (deleted) {
       const deletedSet = new Set(deleted);
