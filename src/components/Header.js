@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router';
 import {
   AppBar,
   Box,
@@ -11,7 +12,6 @@ import {
   Toolbar,
   Tooltip,
 } from '@mui/material';
-import { Link } from 'react-router';
 import MenuIcon from '@mui/icons-material/Menu';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
@@ -88,7 +88,7 @@ const Header = () => {
           </StyledNavBox>
           <Box flexGrow={0}>
             <Tooltip title="Open favourites">
-              <IconButton color="inherit">
+              <IconButton component={Link} to={'favourite'} color="inherit">
                 <FavoriteBorderOutlinedIcon />
               </IconButton>
             </Tooltip>

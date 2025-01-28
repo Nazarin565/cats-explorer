@@ -1,4 +1,4 @@
-export const columns = [
+export const mainTableColumns = [
   { name: 'id', title: 'ID' },
   { name: 'name', title: 'Name' },
   { name: 'country_code', title: 'Country code' },
@@ -27,4 +27,22 @@ export const stats = [
   'natural',
   'suppressed_tail',
   'short_legs',
+];
+
+export const favouriteTableColumns = [
+  { name: 'id', title: 'ID' },
+  { name: 'name', title: 'Picture name' },
+  { name: 'rating', title: 'Rating' },
+  { name: 'description', title: 'Description' },
+  { name: 'url', title: 'URL' },
+  { name: 'date', title: 'Added to list' },
+];
+
+export const defaultFavouriteColumnsOrder = [
+  'id',
+  'name',
+  'rating',
+  'description',
+  'url',
+  'date',
 ];

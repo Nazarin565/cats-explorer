@@ -19,7 +19,7 @@ import { Typography } from '@mui/material';
 import RowDetail from './RowDetail';
 
 import { TableHeaderContent } from '../styles/MainTable.styles';
-import { columns } from '../utils/constants';
+import { mainTableColumns } from '../utils/constants';
 import { getCats } from '../api/cats';
 
 const MainTable = () => {
@@ -48,7 +48,7 @@ const MainTable = () => {
         Cat's explorer
       </Typography>
       <Paper>
-        <Grid rows={rows} columns={columns}>
+        <Grid rows={rows} columns={mainTableColumns}>
           <PagingState defaultCurrentPage={1} defaultPageSizepageSize={10} />
           <SortingState />
           <RowDetailState />

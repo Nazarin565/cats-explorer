@@ -7,39 +7,19 @@ import {
   DialogContent,
   DialogTitle,
   Grid2,
-  Paper,
   Rating,
   TextField,
   Typography,
 } from '@mui/material';
-import {
-  Grid,
-  Table,
-  TableHeaderRow,
-  TableRowDetail,
-} from '@devexpress/dx-react-grid-material-ui';
 
 import Loader from './Loader';
 
 import { getRandomCatImage } from '../api/cats';
-import { RowDetailState } from '@devexpress/dx-react-grid';
-import RowImage from './RowImage';
 
-const columns = [
-  { name: 'id', title: 'ID' },
-  { name: 'name', title: 'Picture name' },
-  { name: 'rating', title: 'Rating' },
-  { name: 'description', title: 'Description' },
-  { name: 'date', title: 'Added to list' },
-];
-
-const RandomCatsTable = () => {
+const Random = () => {
   const [currentCat, setCurrentCat] = useState(null);
   const [loading, setLoading] = useState(false);
   const [saveButton, setSaveButton] = useState(false);
-  const [savedCats, setSavedCats] = useState(
-    JSON.parse(localStorage.getItem('savedCats')) || []
-  );
   const [isFormOpened, setIsFormOpened] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -69,8 +49,8 @@ const RandomCatsTable = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const date = new Date().toLocaleString();
-    const newArr = [{ ...currentCat, ...formData, date }, ...savedCats];
-    setSavedCats(newArr);
+    const prev = JSON.parse(localStorage.getItem('savedCats')) || [];
+    const newArr = [{ ...currentCat, ...formData, date }, ...prev];
     localStorage.setItem('savedCats', JSON.stringify(newArr));
     setIsFormOpened(false);
 
@@ -88,10 +68,11 @@ const RandomCatsTable = () => {
       alignItems={'center'}
       gap={4}
       textAlign={'center'}
+      minWidth={'665px'}
     >
       <Typography variant="h3">Random cats!</Typography>
       <Typography>
-        Press the button and decide to save this cat or skip them!
+        Press the button and decide to save this picture or skip them!
       </Typography>
       <Grid2 container spacing={4}>
         <Button variant="contained" onClick={handleGetImage} loading={loading}>
@@ -102,7 +83,7 @@ const RandomCatsTable = () => {
           onClick={() => setIsFormOpened(true)}
           disabled={!saveButton}
         >
-          Save this cat
+          Save this pic
         </Button>
       </Grid2>
       <Box width={'80%'}>{!currentCat && loading && <Loader />}</Box>
@@ -170,18 +151,8 @@ const RandomCatsTable = () => {
           </DialogActions>
         </form>
       </Dialog>
-
-      <Paper>
-        <Grid columns={columns} rows={savedCats}>
-          <RowDetailState />
-
-          <Table />
-          <TableHeaderRow />
-          <TableRowDetail contentComponent={RowImage} />
-        </Grid>
-      </Paper>
     </Grid2>
   );
 };
 
-export default RandomCatsTable;
+export default Random;

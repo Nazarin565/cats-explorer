@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import { createTheme } from '@mui/material/styles';
 
 import App from './App';
-import { MainTable, RandomCatsTable, StartScreen } from './components';
+import { MainTable, Random, StartScreen, FavouritesTable } from './components';
 
 import GlobalStyles from './GlobalStyles';
 
@@ -19,7 +19,8 @@ const Root = () => (
         <Route path="/" element={<App />}>
           <Route index element={<StartScreen />} />
           <Route path="explore" element={<MainTable />} />
-          <Route path="random" element={<RandomCatsTable />} />
+          <Route path="random" element={<Random />} />
+          <Route path="favourite" element={<FavouritesTable />} />
         </Route>
       </Routes>
     </BrowserRouter>
