@@ -1,64 +1,44 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Grid2,
-  Rating,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Grid2, Typography } from '@mui/material';
 
 import Loader from './Loader';
+import AddToFavouriteForm from './AddToFavouriteForm';
 
 import { getRandomCatImage } from '../api/cats';
+import { initialAddedResult } from '../utils/constants';
 
 const Random = () => {
   const [currentCat, setCurrentCat] = useState(null);
   const [loading, setLoading] = useState(false);
   const [saveButton, setSaveButton] = useState(false);
   const [isFormOpened, setIsFormOpened] = useState(false);
+  const [addedResult, setAddedResult] = useState(initialAddedResult);
 
-  const [formData, setFormData] = useState({
-    name: '',
-    rating: 0,
-    description: '',
-  });
+  const handleSuccessResult = () => {
+    setAddedResult({ ...addedResult, success: true });
+  };
 
   const handleGetImage = () => {
     setCurrentCat(null);
     setLoading(true);
     setSaveButton(false);
+    setAddedResult(initialAddedResult);
 
     getRandomCatImage()
-      .then((data) => setCurrentCat(...data))
+      .then((data) => {
+        setCurrentCat(...data);
+        setSaveButton(true);
+      })
+      .catch((error) =>
+        setAddedResult({ ...addedResult, error: error.message })
+      )
       .finally(() => {
         setLoading(false);
-        setSaveButton(true);
       });
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const date = new Date().toLocaleString();
-    const prev = JSON.parse(localStorage.getItem('savedCats')) || [];
-    const newArr = [{ ...currentCat, ...formData, date }, ...prev];
-    localStorage.setItem('savedCats', JSON.stringify(newArr));
+  const handleCloseForm = () => {
     setIsFormOpened(false);
-
-    setFormData({
-      name: '',
-      rating: 0,
-      description: '',
-    });
   };
 
   return (
@@ -81,7 +61,7 @@ const Random = () => {
         <Button
           variant="contained"
           onClick={() => setIsFormOpened(true)}
-          disabled={!saveButton}
+          disabled={!saveButton || addedResult.success}
         >
           Save this pic
         </Button>
@@ -93,64 +73,24 @@ const Random = () => {
         )}
       </Box>
 
-      <Dialog
-        open={isFormOpened}
-        onClose={() => setIsFormOpened(false)}
-        maxWidth="sm"
-        fullWidth
-      >
-        <DialogTitle textAlign={'center'}>
-          Enter details about this foto
-        </DialogTitle>
+      <AddToFavouriteForm
+        isFormOpened={isFormOpened}
+        onCloseForm={handleCloseForm}
+        currentCat={currentCat}
+        onSuccessResult={handleSuccessResult}
+      />
 
-        <form onSubmit={handleSubmit}>
-          <DialogContent>
-            <TextField
-              fullWidth
-              margin="normal"
-              label="Picture name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
+      {addedResult.success && (
+        <Typography variant="body2" color="green">
+          Successfully added to favourites
+        </Typography>
+      )}
 
-            <Grid2 container alignItems={'center'}>
-              <label>Rating:</label>
-              <Rating
-                name="rating"
-                precision={1}
-                max={5}
-                value={formData.rating}
-                onChange={handleChange}
-                required
-              />
-            </Grid2>
-
-            <TextField
-              fullWidth
-              margin="normal"
-              label="Feedback"
-              name="description"
-              value={formData.feedback}
-              onChange={handleChange}
-              multiline
-              rows={4}
-              placeholder="Write your feedback here..."
-            />
-          </DialogContent>
-
-          <DialogActions>
-            <Button onClick={() => setIsFormOpened(false)} color="secondary">
-              Cancel
-            </Button>
-
-            <Button type="submit" variant="contained" color="primary">
-              Submit
-            </Button>
-          </DialogActions>
-        </form>
-      </Dialog>
+      {addedResult.error && (
+        <Typography variant="body2" color="red">
+          Error: {addedResult.error}
+        </Typography>
+      )}
     </Grid2>
   );
 };

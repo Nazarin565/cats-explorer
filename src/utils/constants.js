@@ -46,3 +46,8 @@ export const defaultFavouriteColumnsOrder = [
   'url',
   'date',
 ];
+
+export const initialAddedResult = {
+  success: false,
+  error: '',
+};
